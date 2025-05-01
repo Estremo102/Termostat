@@ -1,13 +1,29 @@
-# Termostat
-Projekt w ramach ideii DIY. Powstał on na potrzeby regulacji temperatury na mieszkaniu, we współpracy z piecem Ariston HS PREMIUM 24 EU2, jednak wiele piecy działa na podobnej zasadzie, a więc urządzenie to jest kompatybilne z wieloma modelami. 
+# Termostat DIY
 
-Z pieca można wyprowadzić kabel który po zwarciu uruchamia grzanie, mechanizm działania termostatu jest więc prosty. Mikrokontroler na podstawie danych z czujnika temperatury zmienia stan switcha który jest połączony z piecem za pomocą dwużyłowego kabla. Aby móc łatwo regulować temperaturę termostat został wyposażony w enkoder cyfrowy oraz wyświetlacz.
+Projekt powstał w ramach idei DIY i został zaprojektowany do regulacji temperatury w mieszkaniu. Został przetestowany we współpracy z piecem **Ariston HS PREMIUM 24 EU2**, jednak dzięki prostemu mechanizmowi działania, może być kompatybilny z wieloma innymi modelami pieców.
 
-Użyty czujnik zbiera informacje nie tylko o temperaturze, ale także o wilgotności, dlatego ta informacja jest wyświetlana obok temperatury, temperatury zadanej oraz histerezy.
+## Zasada działania
 
-Projekt płytki PCB można znaleźć w pliku Termostat_PCB.psb, użyte przeze mnie komponenty to:
-mikrokontroler arduino nano
- wyświetlacz to 1.8 TFT SPI 128x160 V1.1
- czujnik temperatury i wilgoci AHT10
- switch JQC-3FF-S-Z
- Enkoder cyfrowy Cap EC11
+Większość pieców umożliwia zdalne uruchomienie grzania poprzez zwarcie odpowiednich styków. Termostat wykorzystuje tę możliwość: mikrokontroler steruje stanem przekaźnika (switcha), który łączy lub rozłącza obwód, wywołując działanie pieca.
+
+Termostat zbiera dane z czujnika temperatury i wilgotności, a użytkownik może regulować temperaturę za pomocą enkodera cyfrowego. Wszystkie informacje (temperatura, wilgotność, temperatura zadana oraz histereza) wyświetlane są na ekranie TFT.
+
+## Komponenty
+
+- **Mikrokontroler:** Arduino Nano  
+- **Wyświetlacz:** 1.8" TFT SPI 128x160 (wersja V1.1)  
+- **Czujnik:** AHT10 (pomiar temperatury i wilgotności)  
+- **Przekaźnik (switch):** JQC-3FF-S-Z  
+- **Enkoder cyfrowy:** Cap EC11  
+
+## Pliki
+
+- `Termostat_PCB.psb` – projekt płytki PCB w formacie kompatybilnym z [nazwa programu, np. Sprint Layout lub inny, jeśli dotyczy]
+
+## Zdjęcia i schematy
+
+
+
+## Licencja
+
+GPL

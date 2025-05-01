@@ -127,7 +127,11 @@ void printCopyright() {
   delay(250);
   tft.println("DOMINIK MOZDZEN");
   delay(250);
-  tft.println("2025");
+  tft.println("PODZIEKOWANIA DLA");
+  delay(250);
+  tft.println("MARCIN MLYNARCZYK");
+  delay(250);
+  tft.println("2024-2025");
   delay(250);
 }
 

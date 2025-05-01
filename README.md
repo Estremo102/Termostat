@@ -16,6 +16,30 @@ Termostat zbiera dane z czujnika temperatury i wilgotności, a użytkownik może
 - **Przekaźnik (switch):** JQC-3FF-S-Z  
 - **Enkoder cyfrowy:** Cap EC11  
 
+## Używane biblioteki
+
+Projekt wykorzystuje następujące biblioteki Arduino:
+
+    Adafruit AHTX0
+
+    Adafruit ST7735 and ST7789
+
+Po zainstalowaniu tych bibliotek przez Menedżera Bibliotek Arduino IDE, wszystkie wymagane zależności (m.in. Adafruit GFX, SPI, Wire) zostaną pobrane automatycznie.
+
+Instalacja:
+
+    Otwórz Arduino IDE.
+
+    Przejdź do: Szkic → Dołącz bibliotekę → Zarządzaj bibliotekami...
+
+    Wyszukaj i zainstaluj:
+
+        Adafruit AHTX0
+
+        Adafruit ST7735 and ST7789
+
+Nie trzeba instalować ręcznie bibliotek Adafruit GFX, SPI ani Wire – zostaną one dołączone automatycznie jako zależności.
+
 ## Pliki
 
 - `Termostat_PCB.psb` – projekt płytki PCB w formacie kompatybilnym z [nazwa programu, np. Sprint Layout lub inny, jeśli dotyczy]

@@ -14,9 +14,10 @@
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 Adafruit_AHTX0 aht;
+sensors_event_t humidity, temp;
 
 float T_aht, hum_aht, T_min = 19, T_max = 19.5, hysteresis = 0.5;
-bool heating;
+bool heating = false;
 
 int bpc = 0;
 
@@ -27,20 +28,17 @@ void setup(){
   printCopyright();
   Serial.begin(9600);
   aht.begin();
-  heating = false;
   pinMode(SWITCH, OUTPUT);
   pinMode(ENC_A, INPUT);
   pinMode(ENC_B, INPUT);
   pinMode(ENC_SW, INPUT);
   attachInterrupt(digitalPinToInterrupt(ENC_A), updateEncoder, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENC_SW), handleEncoderButton, CHANGE);
-  delay(1000);
   tft.fillScreen(ST7735_BLACK);
   drawGUI();
 }
 
 void loop() {
-  sensors_event_t humidity, temp;
   aht.getEvent(&humidity, &temp);
   T_aht = temp.temperature;
   hum_aht = humidity.relative_humidity;
@@ -132,7 +130,7 @@ void printCopyright() {
   tft.println("MARCIN MLYNARCZYK");
   delay(250);
   tft.println("2024-2025");
-  delay(250);
+  delay(1000);
 }
 
 void drawSelectedCircle(){

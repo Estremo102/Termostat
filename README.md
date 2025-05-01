@@ -60,6 +60,10 @@ The thermostat collects data from the temperature and humidity sensor, and the u
 | KEY         | D3          |
 | 5V          | 5V          |
 
+### PCB Board
+
+<img src="images/Termostat_PCB.png">
+
 ### Libraries Used
 
 This project uses the following Arduino libraries:
@@ -152,6 +156,10 @@ Termostat zbiera dane z czujnika temperatury i wilgotności, a użytkownik może
 | S2           | D4          |
 | KEY          | D3          |
 | 5V           | 5V          |
+
+### Płytka PCB
+
+<img src="images/Termostat_PCB.png">
 
 ### Używane biblioteki
 

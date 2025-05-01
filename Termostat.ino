@@ -17,9 +17,9 @@ Adafruit_AHTX0 aht;
 sensors_event_t humidity, temp;
 
 float T_aht, hum_aht, T_min = 19, T_max = 19.5, hysteresis = 0.5;
-bool heating = false;
+bool heating = false, refreshGUI = false;
 
-int bpc = 0;
+int bpc = 0, language = 0;
 
 void setup(){
   tft.initR(INITR_BLACKTAB);
@@ -34,7 +34,6 @@ void setup(){
   pinMode(ENC_SW, INPUT);
   attachInterrupt(digitalPinToInterrupt(ENC_A), updateEncoder, CHANGE);
   attachInterrupt(digitalPinToInterrupt(ENC_SW), handleEncoderButton, CHANGE);
-  tft.fillScreen(ST7735_BLACK);
   drawGUI();
 }
 
@@ -55,10 +54,16 @@ void loop() {
     digitalWrite(SWITCH, HIGH);
     tft.fillCircle(65, 50, 3, ST7735_RED);
   }
+  if(refreshGUI){
+    refreshGUI = false;
+    drawGUI();
+  }
   showData();
 }
 
 void drawGUI(){
+  tft.fillScreen(ST7735_BLACK);
+
   for(int i = 0; i < 3; i++){
     tft.drawRoundRect(i, i, 78 - 2*i, 62 - 2*i, 5, ST7735_RED);
     tft.drawRoundRect(i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_BLUE);
@@ -66,6 +71,25 @@ void drawGUI(){
     tft.drawRoundRect(80 + i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_YELLOW);
   }
   
+  switch(abs(language%2)){
+    case 0:
+      drawPolishGUI();
+      break;
+    case 1:
+      drawEnglishGUI();
+      break;
+  }
+  
+  tft.drawCircle(65, 50, 5, ST7735_RED);
+  tft.drawCircle(145, 50, 5, ST7735_GREEN);
+  tft.drawCircle(65, 114, 5, ST7735_BLUE);
+  tft.drawCircle(145, 114, 5, ST7735_YELLOW);
+  
+  drawSelectedCircle();
+  showData();
+}
+
+void drawPolishGUI(){
   tft.setTextSize(1);
 
   tft.setTextColor(ST7735_RED, ST7735_BLACK);
@@ -75,6 +99,8 @@ void drawGUI(){
   tft.setTextColor(ST7735_BLUE, ST7735_BLACK);
   tft.setCursor(10, 69);
   tft.print("WILGOTNOSC");
+  tft.setCursor(22, 110);
+  tft.print("POLSKI");
 
   tft.setTextColor(ST7735_GREEN, ST7735_BLACK);
   tft.setCursor(85, 5);
@@ -86,12 +112,33 @@ void drawGUI(){
   tft.setCursor(92, 69);
   tft.print("HISTEREZA");
 
-  tft.drawCircle(65, 50, 5, ST7735_RED);
-  tft.drawCircle(145, 50, 5, ST7735_GREEN);
-  tft.drawCircle(145, 114, 5, ST7735_YELLOW);
-  
-  drawSelectedCircle();
-  showData();
+}
+
+void drawEnglishGUI(){
+  tft.setTextSize(1);
+
+  tft.setTextColor(ST7735_RED, ST7735_BLACK);
+  tft.setCursor(5, 5);
+  tft.print("TEMPERATURE");
+
+  tft.setTextColor(ST7735_BLUE, ST7735_BLACK);
+  tft.setCursor(16, 69);
+  tft.print("HUMIDITY");
+  tft.setCursor(16, 110);
+  tft.print("ENGLISH");
+
+
+  tft.setTextColor(ST7735_GREEN, ST7735_BLACK);
+  tft.setCursor(85, 5);
+  tft.print("TEMPERATURE");
+  tft.setCursor(110, 14);
+  tft.print("SET");
+
+  tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);
+  tft.setCursor(90, 69);
+  tft.print("HYSTERESIS");
+
+
 }
 
 void showData(){
@@ -134,20 +181,24 @@ void printCopyright() {
 }
 
 void drawSelectedCircle(){
-  if(bpc%2==0){
-    tft.fillCircle(145, 50, 3, ST7735_GREEN);
-  }else{
-    tft.fillCircle(145, 50, 3, ST7735_BLACK);
-  }
-  if(bpc%2==1){
-    tft.fillCircle(145, 114, 3, ST7735_YELLOW);
-  }else{
-    tft.fillCircle(145, 114, 3, ST7735_BLACK);
+  tft.fillCircle(65, 114, 3, ST7735_BLACK);
+  tft.fillCircle(145, 114, 3, ST7735_BLACK);
+  tft.fillCircle(145, 50, 3, ST7735_BLACK);
+  switch(bpc%3){
+    case 0:
+      tft.fillCircle(145, 50, 3, ST7735_GREEN);
+      break;
+    case 1:
+      tft.fillCircle(145, 114, 3, ST7735_YELLOW);
+      break;
+    case 2:
+      tft.fillCircle(65, 114, 3, ST7735_BLUE);
+      break;
   }
 }
 
 void updateEncoder() {
-  switch(bpc%2)
+  switch(bpc%3)
   {
     case 0:
       if(digitalRead(ENC_A)){
@@ -176,8 +227,18 @@ void updateEncoder() {
       T_max = T_min + hysteresis;
       }
       break;
+    case 2:
+      if(digitalRead(ENC_A)){
+        if(digitalRead(ENC_B)){
+          language++;
+        }
+        else{
+          language--;
+        }
+        refreshGUI = true;
+      }
+      break;
   }
-  
 }
 
 void handleEncoderButton() {

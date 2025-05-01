@@ -22,7 +22,8 @@ Termostat zbiera dane z czujnika temperatury i wilgotności, a użytkownik może
 
 ## Zdjęcia i schematy
 
-
+Prototyp z prostszym wyświetlaczem i bez regulacji temperatury zadanej.
+<img src="images/prototyp.jpg">
 
 ## Licencja
 

@@ -16,6 +16,48 @@ Termostat zbiera dane z czujnika temperatury i wilgotności, a użytkownik może
 - **Przekaźnik (switch):** JQC-3FF-S-Z  
 - **Enkoder cyfrowy:** Cap EC11  
 
+## Połączenia
+
+### Przekaźnik (Switch) → Arduino
+
+| Pin przekaźnika | Pin Arduino |
+|-----------------|-------------|
+| VCC             | 5V          |
+| GND             | GND         |
+| IN              | D7          |
+
+### Czujnik AHT10 → Arduino
+
+| Pin czujnika | Pin Arduino |
+|--------------|-------------|
+| VIN          | 5V          |
+| GND          | GND         |
+| SCL          | A5          |
+| SDA          | A4          |
+
+### Wyświetlacz TFT → Arduino
+
+| Pin wyświetlacza | Pin Arduino |
+|------------------|-------------|
+| VCC              | 5V          |
+| GND              | GND         |
+| CS               | D10         |
+| RESET            | D8          |
+| A0               | D9          |
+| SDA              | D11         |
+| CSK              | D13         |
+| LED              | 3V3         |
+
+### Enkoder cyfrowy → Arduino
+
+| Pin enkodera | Pin Arduino |
+|--------------|-------------|
+| GND          | GND         |
+| S1           | D2          |
+| S2           | D4          |
+| KEY          | D3          |
+| 5V           | 5V          |
+
 ## Używane biblioteki
 
 Projekt wykorzystuje następujące biblioteki Arduino:

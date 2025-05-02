@@ -71,12 +71,15 @@ void drawGUI(){
     tft.drawRoundRect(80 + i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_YELLOW);
   }
   
-  switch(abs(language%2)){
+  switch(abs(language%3)){
     case 0:
       drawPolishGUI();
       break;
     case 1:
       drawEnglishGUI();
+      break;
+    case 2:
+      drawSpanishGUI();
       break;
   }
   
@@ -93,7 +96,7 @@ void drawPolishGUI(){
   tft.setTextSize(1);
 
   tft.setTextColor(ST7735_RED, ST7735_BLACK);
-  tft.setCursor(5, 5);
+  tft.setCursor(6, 5);
   tft.print("TEMPERATURA");
 
   tft.setTextColor(ST7735_BLUE, ST7735_BLACK);
@@ -103,7 +106,7 @@ void drawPolishGUI(){
   tft.print("POLSKI");
 
   tft.setTextColor(ST7735_GREEN, ST7735_BLACK);
-  tft.setCursor(85, 5);
+  tft.setCursor(86, 5);
   tft.print("TEMPERATURA");
   tft.setCursor(100, 14);
   tft.print("ZADANA");
@@ -111,14 +114,13 @@ void drawPolishGUI(){
   tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);
   tft.setCursor(92, 69);
   tft.print("HISTEREZA");
-
 }
 
 void drawEnglishGUI(){
   tft.setTextSize(1);
 
   tft.setTextColor(ST7735_RED, ST7735_BLACK);
-  tft.setCursor(5, 5);
+  tft.setCursor(6, 5);
   tft.print("TEMPERATURE");
 
   tft.setTextColor(ST7735_BLUE, ST7735_BLACK);
@@ -129,7 +131,7 @@ void drawEnglishGUI(){
 
 
   tft.setTextColor(ST7735_GREEN, ST7735_BLACK);
-  tft.setCursor(85, 5);
+  tft.setCursor(86, 5);
   tft.print("TEMPERATURE");
   tft.setCursor(110, 14);
   tft.print("SET");
@@ -137,8 +139,30 @@ void drawEnglishGUI(){
   tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);
   tft.setCursor(90, 69);
   tft.print("HYSTERESIS");
+}
 
+void drawSpanishGUI(){
+  tft.setTextSize(1);
 
+  tft.setTextColor(ST7735_RED, ST7735_BLACK);
+  tft.setCursor(6, 5);
+  tft.print("TEMPERATURA");
+
+  tft.setTextColor(ST7735_BLUE, ST7735_BLACK);
+  tft.setCursor(16, 69);
+  tft.print("HUMEDAD");
+  tft.setCursor(16, 110);
+  tft.print("ESPANOL");
+
+  tft.setTextColor(ST7735_GREEN, ST7735_BLACK);
+  tft.setCursor(86, 5);
+  tft.print("TEMPERATURA");
+  tft.setCursor(86, 14);
+  tft.print("ESTABLECIDA");
+
+  tft.setTextColor(ST7735_YELLOW, ST7735_BLACK);
+  tft.setCursor(90, 69);
+  tft.print("HISTERESIS");
 }
 
 void showData(){

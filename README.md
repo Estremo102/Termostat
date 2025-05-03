@@ -1,3 +1,6 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Estremo102/Termostat/blob/master/README.md)
+[![pl](https://img.shields.io/badge/lang-pl-white.svg)](https://github.com/Estremo102/Termostat/blob/master/README.pl.md)
+
 # DIY Thermostat
 
 This project was created as part of the DIY concept and was designed for temperature regulation in an apartment. It was tested with the **Ariston HS PREMIUM 24 EU2** boiler, but due to its simple operation mechanism, it is compatible with many other boiler models.

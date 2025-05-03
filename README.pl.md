@@ -1,3 +1,6 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Estremo102/Termostat/blob/master/README.md)
+[![pl](https://img.shields.io/badge/lang-pl-white.svg)](https://github.com/Estremo102/Termostat/blob/master/README.pl.md)
+
 # DIY Termostat
 
 Projekt powstał w ramach idei DIY i został zaprojektowany do regulacji temperatury w mieszkaniu. Został przetestowany we współpracy z piecem **Ariston HS PREMIUM 24 EU2**, jednak dzięki prostemu mechanizmowi działania, może być kompatybilny z wieloma innymi modelami pieców.

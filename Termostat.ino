@@ -149,7 +149,7 @@ void drawSpanishGUI(){
   tft.print("TEMPERATURA");
 
   tft.setTextColor(ST7735_BLUE, ST7735_BLACK);
-  tft.setCursor(16, 69);
+  tft.setCursor(19, 69);
   tft.print("HUMEDAD");
   tft.setCursor(16, 110);
   tft.print("ESPANOL");

@@ -24,7 +24,7 @@ int bpc = 0, language = 0;
 void setup(){
   tft.initR(INITR_BLACKTAB);
   tft.fillScreen(ST7735_BLACK);
-  tft.setRotation(1);
+  tft.setRotation(3);
   printCopyright();
   Serial.begin(9600);
   aht.begin();

@@ -21,76 +21,6 @@ bool heating = false, refreshGUI = false;
 
 int bpc = 0, language = 0;
 
-void setup(){
-  tft.initR(INITR_BLACKTAB);
-  tft.fillScreen(ST7735_BLACK);
-  tft.setRotation(3);
-  printCopyright();
-  Serial.begin(9600);
-  aht.begin();
-  pinMode(SWITCH, OUTPUT);
-  pinMode(ENC_A, INPUT);
-  pinMode(ENC_B, INPUT);
-  pinMode(ENC_SW, INPUT);
-  attachInterrupt(digitalPinToInterrupt(ENC_A), updateEncoder, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(ENC_SW), handleEncoderButton, CHANGE);
-  drawGUI();
-}
-
-void loop() {
-  aht.getEvent(&humidity, &temp);
-  T_aht = temp.temperature;
-  hum_aht = humidity.relative_humidity;
-
-  if(heating && (T_aht > T_max)) 
-  {
-    heating = false;
-    digitalWrite(SWITCH, LOW);
-    tft.fillCircle(65, 50, 3, ST7735_BLACK);
-  }
-  else if(!heating && (T_aht < T_min)) 
-  {
-    heating = true;
-    digitalWrite(SWITCH, HIGH);
-    tft.fillCircle(65, 50, 3, ST7735_RED);
-  }
-  if(refreshGUI){
-    refreshGUI = false;
-    drawGUI();
-  }
-  showData();
-}
-
-void drawGUI(){
-  tft.fillScreen(ST7735_BLACK);
-
-  for(int i = 0; i < 3; i++){
-    tft.drawRoundRect(i, i, 78 - 2*i, 62 - 2*i, 5, ST7735_RED);
-    tft.drawRoundRect(i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_BLUE);
-    tft.drawRoundRect(80+i, i, 78 - 2*i, 62 - 2*i, 5, ST7735_GREEN);
-    tft.drawRoundRect(80 + i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_YELLOW);
-  }
-  
-  switch(abs(language%3)){
-    case 0:
-      drawPolishGUI();
-      break;
-    case 1:
-      drawEnglishGUI();
-      break;
-    case 2:
-      drawSpanishGUI();
-      break;
-  }
-  
-  tft.drawCircle(65, 50, 5, ST7735_RED);
-  tft.drawCircle(145, 50, 5, ST7735_GREEN);
-  tft.drawCircle(65, 114, 5, ST7735_BLUE);
-  tft.drawCircle(145, 114, 5, ST7735_YELLOW);
-  
-  drawSelectedCircle();
-  showData();
-}
 
 void drawPolishGUI(){
   tft.setTextSize(1);
@@ -192,7 +122,7 @@ void showData(){
 void printCopyright() {
   tft.fillScreen(ST7735_BLACK);
   tft.setTextColor(ST7735_GREEN, ST7735_BLACK);
-  tft.println("TERMOSTAT 1.2.0");
+  tft.println("TERMOSTAT 1.2.1");
   delay(250);
   tft.println("DOMINIK MOZDZEN");
   delay(250);
@@ -219,6 +149,38 @@ void drawSelectedCircle(){
       tft.fillCircle(65, 114, 3, ST7735_BLUE);
       break;
   }
+}
+
+
+void drawGUI(){
+  tft.fillScreen(ST7735_BLACK);
+
+  for(int i = 0; i < 3; i++){
+    tft.drawRoundRect(i, i, 78 - 2*i, 62 - 2*i, 5, ST7735_RED);
+    tft.drawRoundRect(i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_BLUE);
+    tft.drawRoundRect(80+i, i, 78 - 2*i, 62 - 2*i, 5, ST7735_GREEN);
+    tft.drawRoundRect(80 + i, 64 + i, 78 - 2*i, 62 - 2*i, 5, ST7735_YELLOW);
+  }
+  
+  switch(abs(language%3)){
+    case 0:
+      drawPolishGUI();
+      break;
+    case 1:
+      drawEnglishGUI();
+      break;
+    case 2:
+      drawSpanishGUI();
+      break;
+  }
+  
+  tft.drawCircle(65, 50, 5, ST7735_RED);
+  tft.drawCircle(145, 50, 5, ST7735_GREEN);
+  tft.drawCircle(65, 114, 5, ST7735_BLUE);
+  tft.drawCircle(145, 114, 5, ST7735_YELLOW);
+  
+  drawSelectedCircle();
+  showData();
 }
 
 void updateEncoder() {
@@ -270,4 +232,44 @@ void handleEncoderButton() {
     bpc++;
   }
   drawSelectedCircle();
+}
+
+void setup(){
+  tft.initR(INITR_BLACKTAB);
+  tft.fillScreen(ST7735_BLACK);
+  tft.setRotation(3);
+  printCopyright();
+  Serial.begin(9600);
+  aht.begin();
+  pinMode(SWITCH, OUTPUT);
+  pinMode(ENC_A, INPUT);
+  pinMode(ENC_B, INPUT);
+  pinMode(ENC_SW, INPUT);
+  attachInterrupt(digitalPinToInterrupt(ENC_A), updateEncoder, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENC_SW), handleEncoderButton, CHANGE);
+  drawGUI();
+}
+
+void loop() {
+  aht.getEvent(&humidity, &temp);
+  T_aht = temp.temperature;
+  hum_aht = humidity.relative_humidity;
+
+  if(heating && (T_aht > T_max)) 
+  {
+    heating = false;
+    digitalWrite(SWITCH, LOW);
+    tft.fillCircle(65, 50, 3, ST7735_BLACK);
+  }
+  else if(!heating && (T_aht < T_min)) 
+  {
+    heating = true;
+    digitalWrite(SWITCH, HIGH);
+    tft.fillCircle(65, 50, 3, ST7735_RED);
+  }
+  if(refreshGUI){
+    refreshGUI = false;
+    drawGUI();
+  }
+  showData();
 }
